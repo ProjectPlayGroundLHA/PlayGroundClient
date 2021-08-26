@@ -10,7 +10,7 @@ export const createFriend = (data, user) => {
       Authorization: `Bearer ${user.token}`
     },
     data: {
-      location: data
+      friend: data
     }
   })
 }

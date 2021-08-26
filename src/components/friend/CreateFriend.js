@@ -12,6 +12,7 @@ class CreateFriend extends Component {
     super(props)
 
     this.state = {
+      username: '',
       location: ''
     }
   }
@@ -28,7 +29,7 @@ onCreateFriend = (event) => {
   const data = this.state
 
   createFriend(data, user)
-    .then((res) => history.push('/friends' + res.data.location._id))
+    .then((res) => history.push('/friends/' + res.data.friend._id))
     .then(() =>
       msgAlert({
         heading: 'Friend Added!',
@@ -59,15 +60,14 @@ render () {
                 Add Friend
             </Form.Label>
             <Form.Control
-              required
-              type='text'
-              name='name'
+              type='username'
+              name='username'
               value={username}
               placeholder='Add friend name...'
               onChange={this.handleChange}
             />
             <Form.Control
-              type='text'
+              type='location'
               name='location'
               value={location}
               placeholder='Add location name...'

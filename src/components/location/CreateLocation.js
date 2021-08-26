@@ -50,8 +50,8 @@ onCreateLocation = (event) => {
 }
 
 render () {
-  const { description } = this.state
-  const { address } = this.props
+  const { description, location } = this.state
+  // const { address } = this.props
 
   return (
     <div className='row'>
@@ -64,7 +64,7 @@ render () {
               required
               type='text'
               name='location'
-              value={address}
+              value={location}
               placeholder='Enter location'
               onChange={this.handleChange}
             />
