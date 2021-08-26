@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { indexFriends } from '../../api/friend'
-import { showLocationFailure } from '../AutoDismissAlert/messages'
+import { showFriendFailure } from '../AutoDismissAlert/messages'
 
 class IndexFriends extends Component {
   constructor (props) {
@@ -19,7 +19,7 @@ class IndexFriends extends Component {
       .catch((err) =>
         msgAlert({
           heading: 'Unable to show Index of Friends :(',
-          message: showLocationFailure + err.message,
+          message: showFriendFailure + err.message,
           variant: 'danger'
         })
       )

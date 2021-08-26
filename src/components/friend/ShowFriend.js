@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 // API request
 import { showFriend, deleteFriend } from '../../api/friend'
-import { showLocationFailure } from '../AutoDismissAlert/messages'
+import { showFriendFailure } from '../AutoDismissAlert/messages'
 import Button from 'react-bootstrap/Button'
 
 class ShowFriend extends Component {
@@ -22,7 +22,7 @@ class ShowFriend extends Component {
       .catch((err) =>
         msgAlert({
           heading: 'Unable to Show Friend :(',
-          message: showLocationFailure + err.message,
+          message: showFriendFailure + err.message,
           variant: 'danger'
         })
       )

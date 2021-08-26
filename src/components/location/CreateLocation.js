@@ -39,7 +39,7 @@ onCreateLocation = (event) => {
         variant: 'success'
       })
     )
-    .then(() => this.setState({ location: '', description: '' }))
+    // .then(() => this.setState({ location: '', description: '' }))
     .catch((err) =>
       msgAlert({
         heading: 'Location creation failed :(',

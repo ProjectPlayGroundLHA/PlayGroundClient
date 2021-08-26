@@ -12,7 +12,8 @@ import SignUp from './components/auth/SignUp'
 import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
-
+// location logic
+import CreateLocation from './components/location/CreateLocation'
 import IndexLocations from './components/location/IndexLocations'
 import ShowLocation from './components/location/ShowLocation'
 import UpdateLocation from './components/location/UpdateLocation'
@@ -104,6 +105,12 @@ class App extends Component {
             render={() => (
               <ChangePassword msgAlert={this.msgAlert} user={user} />
             )}
+          />
+          <AuthenticatedRoute
+            user={user}
+            path='/create-location'
+            render={() => <CreateLocation user={user} address={this.address}/>
+            }
           />
           <AuthenticatedRoute
             msgAlert={this.msgAlert}

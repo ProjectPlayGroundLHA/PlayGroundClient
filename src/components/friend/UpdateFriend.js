@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 
 import { updateFriend, showFriend } from '../../api/friend'
-import { updateLocationFailure } from '../AutoDismissAlert/messages'
+import { updateFriendFailure } from '../AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -47,7 +47,7 @@ handleSubmit = (event) => {
     .catch((err) => {
       msgAlert({
         heading: 'friend update failed :(',
-        message: updateLocationFailure + err.message,
+        message: updateFriendFailure + err.message,
         variant: 'danger'
       })
     })

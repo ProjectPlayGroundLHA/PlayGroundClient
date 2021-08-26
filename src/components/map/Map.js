@@ -3,8 +3,6 @@ import React, { Component } from 'react'
 import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-webpack-loader-syntax
 import './../../index.scss'
 import { saveLocation } from '../../api/map'
-import CreateLocation from '../../components/location/CreateLocation'
-import AuthenticatedRoute from '../../components/AuthenticatedRoute/AuthenticatedRoute'
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibGF1cmFhbHlzb24iLCJhIjoiY2tzcDJleWVkMDF0NjMxcGhwMzM1Mm1tMiJ9.27PwqNrg2-gZnMmuS1vOww'
 
@@ -55,18 +53,11 @@ componentDidMount () {
 
 render () {
   const { lng, lat, zoom } = this.state
-  const { user } = this.props
   return (
     <div>
       <div className='sidebar'>Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
       <div ref={this.mapContainer} className='map-container' />
-      <AuthenticatedRoute
-        user={user}
-        path='/create-location'
-        render={() => <CreateLocation user={user} address={this.address}/>}
-      />
-      <CreateLocation />
     </div>
   )
 }
