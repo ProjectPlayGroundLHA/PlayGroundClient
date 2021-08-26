@@ -8,7 +8,7 @@ class IndexFriends extends Component {
     super(props)
 
     this.state = {
-      locations: ''
+      friends: ''
     }
   }
 
@@ -45,7 +45,7 @@ class IndexFriends extends Component {
 
     return (
       <>
-        <h3>All Possible Friends:</h3>
+        <h3>All My Friends:</h3>
         {FriendJsx}
       </>
     )
