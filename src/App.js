@@ -147,7 +147,7 @@ class App extends Component {
           <AuthenticatedRoute
             msgAlert={this.msgAlert}
             user={user}
-            path='/index-friends'
+            path='/index-friend'
             render={() => (
               <IndexFriends msgAlert={this.msgAlert} user={user} />
             )}

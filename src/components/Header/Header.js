@@ -14,7 +14,7 @@ const authenticatedOptions = (
     <NavLink to='/locations' className='nav-link'>Show Locations</NavLink>
     <NavLink to='/create-friend' className='nav-link'>Add a Friend
     </NavLink>
-    <NavLink to='/friends' className='nav-link'>Show Friends</NavLink>
+    <NavLink to='/index-friend' className='nav-link'>Show Friends</NavLink>
   </Fragment>
 )
 
