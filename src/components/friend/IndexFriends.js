@@ -15,7 +15,7 @@ class IndexFriends extends Component {
   componentDidMount () {
     const { user, msgAlert } = this.props
     indexFriends(user)
-      .then(res => this.setState({ locations: res.data.locations }))
+      .then(res => this.setState({ friends: res.data.friends }))
       .catch((err) =>
         msgAlert({
           heading: 'Unable to show Index of Friends :(',
@@ -25,7 +25,6 @@ class IndexFriends extends Component {
       )
   }
 
-  // - render - display the movies in the state (optionally: loading message)
   render () {
     const { friends } = this.state
     if (friends === null) {
@@ -37,8 +36,8 @@ class IndexFriends extends Component {
       FriendJsx = 'Why don\'t you have any friends? Go out and make some!'
     } else {
       FriendJsx = friends.map(friend => (
-        <li key={friend._id}>
-          <Link to={`/friends/${friend._id}`}>{friend.location}</Link>
+        <li key={friend.username}>
+          <Link to={`/friends/${friend._id}`}>{friend.username}</Link>
         </li>
       ))
     }
