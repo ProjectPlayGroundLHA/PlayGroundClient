@@ -10,7 +10,7 @@ class ShowFriend extends Component {
     super(props)
 
     this.state = {
-      location: null
+      friend: []
     }
   }
 
@@ -37,11 +37,11 @@ class ShowFriend extends Component {
   }
 
   render () {
-    if (this.state.location === null) {
+    if (this.state.friend === null) {
       return 'Loading...'
     }
 
-    const { friend, owner } = this.state.location
+    const { friend, owner } = this.state
     const { user, history, match } = this.props
 
     return (

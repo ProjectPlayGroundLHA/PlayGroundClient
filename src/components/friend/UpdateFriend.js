@@ -12,7 +12,8 @@ class UpdateFriend extends Component {
     super(props)
 
     this.state = {
-      location: {
+      friend: {
+        username: '',
         location: ''
       }
     }
@@ -23,14 +24,14 @@ class UpdateFriend extends Component {
     const { match, user } = this.props
 
     showFriend(match.params.id, user)
-      .then(res => this.setState({ location: res.data.location }))
+      .then(res => this.setState({ friend: res.data.friend }))
       .catch(err => console.log(err))
   }
 
   handleChange = (event) => {
     const userInput = { [event.target.name]: event.target.value }
     this.setState(currState => {
-      return { location: { ...currState.location, ...userInput } }
+      return { friend: { ...currState.friend, ...userInput } }
     })
   }
 
@@ -38,12 +39,12 @@ handleSubmit = (event) => {
   event.preventDefault()
 
   const { user, match, history, msgAlert } = this.props
-  const data = this.state.location
+  const data = this.state.friend
   const id = match.params.id
 
   updateFriend(data, id, user)
     .then(() => history.push('/friends/' + id))
-    .then(() => this.setState({ location: { location: '', description: '' } }))
+    .then(() => this.setState({ friend: { username: '', location: '' } }))
     .catch((err) => {
       msgAlert({
         heading: 'friend update failed :(',
@@ -61,14 +62,25 @@ render () {
       <div className='col-sm-10 col-md-8 mx-auto mt-5'>
         <h3>Update Friend</h3>
         <Form onSubmit={this.handleSubmit}>
-          <Form.Group controlId='friend'>
+          <Form.Group controlId='username'>
             <Form.Label>Friend</Form.Label>
             <Form.Control
               required
               type='text'
-              name='friend'
-              value={friend.location}
+              name='username'
+              value={friend.username}
               placeholder='Edit Friend'
+              onChange={this.handleChange}
+            />
+          </Form.Group>
+          <Form.Group controlId='location'>
+            <Form.Label>Location</Form.Label>
+            <Form.Control
+              required
+              name='location'
+              value={friend.location}
+              type='text'
+              placeholder='location'
               onChange={this.handleChange}
             />
           </Form.Group>

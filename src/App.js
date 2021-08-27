@@ -108,7 +108,7 @@ class App extends Component {
           />
           <AuthenticatedRoute
             user={user}
-            path='/create-location'
+            path='/locations'
             render={() => <CreateLocation user={user} address={this.address}/>
             }
           />
@@ -116,7 +116,7 @@ class App extends Component {
             msgAlert={this.msgAlert}
             user={user}
             exact
-            path='/locations'
+            path='/show-locations'
             render={() => (
               <IndexLocations msgAlert={this.msgAlert} user={user} />
             )}
@@ -139,7 +139,7 @@ class App extends Component {
           <AuthenticatedRoute
             msgAlert={this.msgAlert}
             user={user}
-            path='/create-friend'
+            path='/friends'
             render={() => (
               <CreateFriend msgAlert={this.msgAlert} user={user} />
             )}
@@ -147,7 +147,7 @@ class App extends Component {
           <AuthenticatedRoute
             msgAlert={this.msgAlert}
             user={user}
-            path='/index-friend'
+            path='/show-friends'
             render={() => (
               <IndexFriends msgAlert={this.msgAlert} user={user} />
             )}
@@ -155,7 +155,7 @@ class App extends Component {
           <AuthenticatedRoute
             msgAlert={this.msgAlert}
             user={user}
-            path='/show-friend'
+            path='/friends/:id'
             render={() => (
               <ShowFriend msgAlert={this.msgAlert} user={user} />
             )}
@@ -163,7 +163,7 @@ class App extends Component {
           <AuthenticatedRoute
             msgAlert={this.msgAlert}
             user={user}
-            path='/delete-friend'
+            path='/friends/:id/edit'
             render={() => (
               <UpdateFriend msgAlert={this.msgAlert} user={user} />
             )}

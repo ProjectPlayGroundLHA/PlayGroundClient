@@ -50,7 +50,7 @@ export const updateFriend = (data, id, user) => {
   return axios({
     url: apiUrl + '/friends/' + id,
     method: 'PATCH',
-    data: { location: data },
+    data: { friend: data },
     headers: {
       Authorization: `Bearer ${user.token}`
     }
