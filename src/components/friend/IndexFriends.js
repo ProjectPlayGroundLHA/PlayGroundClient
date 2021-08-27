@@ -16,7 +16,6 @@ class IndexFriends extends Component {
     const { user, msgAlert } = this.props
     indexFriends(user)
       .then(res => {
-        console.log(res.data.friends)
         this.setState({ friends: res.data.friends })
       })
       .catch((err) =>
