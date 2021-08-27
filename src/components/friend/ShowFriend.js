@@ -10,7 +10,7 @@ class ShowFriend extends Component {
     super(props)
 
     this.state = {
-      friend: []
+      friends: []
     }
   }
 
@@ -18,7 +18,7 @@ class ShowFriend extends Component {
     const { match, user, msgAlert } = this.props
 
     showFriend(match.params.id, user)
-      .then((res) => this.setState({ location: res.data.location }))
+      .then((res) => this.setState({ friends: res.data.friends }))
       .catch((err) =>
         msgAlert({
           heading: 'Unable to Show Friend :(',
@@ -31,23 +31,23 @@ class ShowFriend extends Component {
   handleDelete = (event) => {
     const { match, user, history } = this.props
     deleteFriend(match.params.id, user)
-    // Redirect to the list of locations
+    // Redirect to the list of friends
       .then(() => history.push('/friends'))
       .catch((err) => console.log(err))
   }
 
   render () {
-    if (this.state.friend === null) {
+    if (this.state.friends === null) {
       return 'Loading...'
     }
-
-    const { friend, owner } = this.state
+    const { friends, location, owner } = this.state
     const { user, history, match } = this.props
 
     return (
       <>
-        <h3>Show One Friend</h3>
-        <h5>{friend}</h5>
+        <h3>Show One Location</h3>
+        <h5>{friends}</h5>
+        <p>Where? Here - {location}</p>
         {user._id === owner && (
           <>
             <Button onClick={this.handleDelete}>Delete</Button>
