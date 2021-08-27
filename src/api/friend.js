@@ -28,7 +28,7 @@ export const indexFriends = (user) => {
 export const showFriend = (id, user) => {
   return axios({
     method: 'GET',
-    url: `${apiUrl}/friends/${id}`,
+    url: apiUrl + '/friends/' + id,
     headers: {
       Authorization: `Bearer ${user.token}`
     }

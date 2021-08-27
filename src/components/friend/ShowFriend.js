@@ -10,15 +10,16 @@ class ShowFriend extends Component {
     super(props)
 
     this.state = {
-      friends: []
+      friend: null
     }
   }
 
   componentDidMount () {
     const { match, user, msgAlert } = this.props
-
+    console.log('this is user', user)
+    console.log('this is match', match)
     showFriend(match.params.id, user)
-      .then((res) => this.setState({ friends: res.data.friends }))
+      .then((res) => this.setState({ friend: res.data.friend }))
       .catch((err) =>
         msgAlert({
           heading: 'Unable to Show Friend :(',
@@ -37,24 +38,20 @@ class ShowFriend extends Component {
   }
 
   render () {
-    if (this.state.friends === null) {
+    if (this.state.friend === null) {
       return 'Loading...'
     }
-    const { friends, location, owner } = this.state
-    const { user, history, match } = this.props
-
+    const { friend } = this.state
+    console.log('this is friends ', friend)
+    const { user } = this.props
     return (
       <>
         <h3>Show One Location</h3>
-        <h5>{friends}</h5>
-        <p>Where? Here - {location}</p>
-        {user._id === owner && (
+        <h5>{friend.username}</h5>
+        <p>Where? Here - {friend.location}</p>
+        {user._id === friend.owner && (
           <>
             <Button onClick={this.handleDelete}>Delete</Button>
-            <Button
-              onClick={() => history.push(`/friends/${match.params.id}/edit`)}>
-              Update
-            </Button>
           </>
         )}
       </>
