@@ -2,41 +2,52 @@
 @import 'mapbox-gl/dist/mapbox-gl.css';
 @import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
-
 #map {
-
     margin: 0;
     padding: 0;
 }
 
-.map-container {
-
-width: 100%;
-height: 90vh;
-
+main.container-fluid {
+    padding: 0px 0px;
 }
-.lat-long {
-background-color: rgba(35, 55, 75, 0.9);
-color: #fff;
-padding: 6px 12px;
-font-family: monospace;
-z-index: 1;
-position: absolute;
-top: 50px;
-left: 0;
-margin: 12px;
-border-radius: 4px;
 
+.map-container {
+    width: 100%;
+    height: 100vh;
+}
+
+.navbar-nav {
+    margin-left: auto;
+}
+
+.container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
+    width: 100%;
+    padding-right: var(--bs-gutter-x, 0rem);
+    padding-left: var(--bs-gutter-x, 0rem);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.lat-long {
+    background-color: rgba(35, 55, 75, 0.9);
+    color: #fff;
+    padding: 6px 12px;
+    font-family: monospace;
+    z-index: 1;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    margin: 12px;
+    border-radius: 4px;
 }
 
 #marker {
-    // background-image: url('https://docs.mapbox.com/mapbox-gl-js/assets/washington-monument.jpg');
+    //background-image: url('https://cdn5.vectorstock.com/i/1000x1000/05/44/map-marker-icon-vector-12860544.jpg');
     background-size: cover;
     width: 50px;
     height: 50px;
     border-radius: 50%;
     cursor: pointer;
-    
 }
 
 .mapboxgl-popup {

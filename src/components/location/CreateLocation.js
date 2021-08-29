@@ -4,7 +4,10 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 
 import { createLocation } from '../../api/location'
-import { createLocationSuccess, createLocationFailure } from '../AutoDismissAlert/messages'
+import {
+  createLocationSuccess,
+  createLocationFailure
+} from '../AutoDismissAlert/messages'
 
 class CreateLocation extends Component {
   constructor (props) {
@@ -18,7 +21,6 @@ class CreateLocation extends Component {
   }
 
 handleChange = (event) =>
-
   this.setState({
     location: this.props.address,
     description: event.target.value,
@@ -28,7 +30,7 @@ handleChange = (event) =>
 onCreateLocation = (event) => {
   event.preventDefault()
 
-  const { user, msgAlert, setMarkerColor, history } = this.props
+  const { user, msgAlert, history, setAddress } = this.props
 
   const data = this.state
 
@@ -43,18 +45,20 @@ onCreateLocation = (event) => {
       })
     )
     .then(() => this.setState({ location: '', description: '' }))
-    .then(setMarkerColor())
-    .catch((err) =>
+    .then(setAddress())
+    .catch((err) => {
+      this.setState({ description: '' })
       msgAlert({
         heading: 'Location creation failed :(',
         message: createLocationFailure + err.message,
         variant: 'danger'
       })
-    )
+    })
 }
 
 render () {
-  const { address, description } = this.props
+  const { address } = this.props
+  const { description } = this.state
 
   return (
     <div className='row'>
@@ -63,6 +67,7 @@ render () {
           <Form.Group controlId='location'>
             <Form.Label>Location</Form.Label>
             <Form.Control
+              size='sm'
               required
               type='text'
               name='location'
@@ -74,6 +79,7 @@ render () {
           <Form.Group controlId='description'>
             <Form.Label>Description</Form.Label>
             <Form.Control
+              size='sm'
               required
               name='description'
               value={description}
@@ -83,8 +89,7 @@ render () {
             />
           </Form.Group>
 
-          <Button variant='primary' type='submit'>
-            Submit
+          <Button variant='primary' type='submit'>Add Location
           </Button>
         </Form>
       </div>

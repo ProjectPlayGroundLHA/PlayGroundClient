@@ -25,8 +25,12 @@ class Map extends Component {
     this.mapContainer = React.createRef()
   }
 
-setMarkerColor = () => {
-  this.setState({ color: '#33dc3f' })
+  // setMarkerColor = () => {
+  //   this.setState({ color: '#33dc3f' })
+  // }
+
+setAddress = () => {
+  this.setState({ address: '' })
 }
 
 componentDidMount () {
@@ -42,13 +46,16 @@ componentDidMount () {
   indexLocations(this.props.user)
     .then((res) => {
       console.log(res)
-      for (const { coordinates } of res.data.locations) {
+      for (const { coordinates, location, description } of res.data.locations) {
         // make a marker for each location and add to the map
-        new mapboxgl.Marker({ draggable: false, color: '#ffff' })
+        new mapboxgl.Marker({
+          draggable: false,
+          color: '#ffff'
+        })
           .setLngLat(coordinates)
           .setPopup(
             new mapboxgl.Popup({ offset: 25 }).setHTML(
-              `<p>${this.description}</p>`
+              `<h6>${location}</h6><p>${description}</p>`
             )
           )
           .addTo(map)
@@ -65,6 +72,10 @@ componentDidMount () {
       .addTo(map)
     console.log('this is marker: ', marker)
 
+    // marker.on('click', (e) => {
+    //   console.log('this is marker.on click e: ', e)
+    // })
+
     const onDragEnd = (e) => {
       console.log('e: ', e)
       // set state to marker coords
@@ -72,8 +83,7 @@ componentDidMount () {
       this.setState({
         lng: lngLat.lng,
         lat: lngLat.lat,
-        zoom: map.getZoom().toFixed(2),
-        color: '#33dc3f'
+        zoom: map.getZoom().toFixed(2)
       })
       // transfer coords to string address
       getAddress(lngLat.lng, lngLat.lat)
@@ -86,9 +96,11 @@ componentDidMount () {
       indexLocations(this.props.user)
         .then((res) => {
           console.log(res)
-          for (const { coordinates } of res.data.locations) {
-            // make a marker for each location and add to the map
+          for (const { coordinates, location, description } of res.data.locations) {
             new mapboxgl.Marker({ draggable: false, color: '#ffff' })
+              .setPopup(
+                new mapboxgl.Popup({ offset: 25 }).setHTML(`<h6>${location}</h6><p>${description}</p>`)
+              )
               .setLngLat(coordinates)
               .addTo(map)
           }
@@ -103,6 +115,10 @@ componentDidMount () {
     accessToken: mapboxgl.accessToken
   })
   map.addControl(geocoder)
+
+  map.on('click', (e) => {
+    console.log('this is map.e ', e)
+  })
 }
 
 render () {
@@ -116,11 +132,10 @@ render () {
         msgAlert={msgAlert}
         user={user}
         address={address}
-        setMarkerColor={this.setMarkerColor}
+        setAddress={this.setAddress}
       />
       <div ref={this.mapContainer} className='map-container' />
-      <div className='lat-long'>
-        Longitude: {lng} | Latitude: {lat} | Zoom: {zoom} address: {address}
+      <div className='lat-long'>Longitude: {lng} | Latitude: {lat} | Zoom: {zoom} address: {address}
       </div>
     </div>
   )

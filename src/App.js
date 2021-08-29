@@ -24,6 +24,8 @@ import CreateFriend from '../src/components/friend/CreateFriend'
 import IndexFriends from '../src/components/friend/IndexFriends'
 import ShowFriend from '../src/components/friend/ShowFriend'
 import UpdateFriend from '../src/components/friend/UpdateFriend'
+import Users from '../src/components/auth/Users'
+import IndexAllLocations from '../src/components/location/indexAllLocations'
 
 class App extends Component {
   constructor (props) {
@@ -69,7 +71,22 @@ class App extends Component {
             deleteAlert={this.deleteAlert}
           />
         ))}
-        <main className='container'>
+        <main className='container-fluid'>
+          <Route
+            path='/users'
+            render={() => (
+              <Users msgAlert={this.msgAlert} setUser={this.setUser} />
+            )}
+          />
+          <Route
+            path='/locations-all'
+            render={() => (
+              <IndexAllLocations
+                msgAlert={this.msgAlert}
+                setUser={this.setUser}
+              />
+            )}
+          />
           <Route
             path='/sign-up'
             render={() => (

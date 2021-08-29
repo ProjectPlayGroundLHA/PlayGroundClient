@@ -25,6 +25,13 @@ export const indexLocations = (user) => {
   })
 }
 
+export const indexAllLocations = () => {
+  return axios({
+    method: 'GET',
+    url: apiUrl + '/locations-all'
+  })
+}
+
 export const showLocation = (id, user) => {
   return axios({
     method: 'GET',
