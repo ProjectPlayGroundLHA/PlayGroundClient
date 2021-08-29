@@ -30,7 +30,7 @@ handleChange = (event) =>
 onCreateLocation = (event) => {
   event.preventDefault()
 
-  const { user, msgAlert, setMarkerColor, history, setAddress } = this.props
+  const { user, msgAlert, history, setAddress } = this.props
 
   const data = this.state
 
@@ -45,15 +45,15 @@ onCreateLocation = (event) => {
       })
     )
     .then(() => this.setState({ location: '', description: '' }))
-    .then(setMarkerColor())
     .then(setAddress())
-    .catch((err) =>
+    .catch((err) => {
+      this.setState({ description: '' })
       msgAlert({
         heading: 'Location creation failed :(',
         message: createLocationFailure + err.message,
         variant: 'danger'
       })
-    )
+    })
 }
 
 render () {

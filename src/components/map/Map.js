@@ -132,7 +132,6 @@ render () {
         msgAlert={msgAlert}
         user={user}
         address={address}
-        setMarkerColor={this.setMarkerColor}
         setAddress={this.setAddress}
       />
       <div ref={this.mapContainer} className='map-container' />
