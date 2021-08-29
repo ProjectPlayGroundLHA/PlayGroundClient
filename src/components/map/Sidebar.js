@@ -13,7 +13,7 @@ class Sidebar extends Component {
   }
 
   render () {
-    const { user, msgAlert, address, lng, lat, setMarkerColor } = this.props
+    const { user, msgAlert, address, lng, lat, setMarkerColor, setAddress } = this.props
     return (
       <>
         <div id='this.map.current'>
@@ -21,6 +21,7 @@ class Sidebar extends Component {
             <div className='sidebar-content rounded-rect flex-center'>
               <CreateLocation
                 setMarkerColor={setMarkerColor}
+                setAddress={setAddress}
                 msgAlert={msgAlert}
                 user={user}
                 address={address}

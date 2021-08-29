@@ -29,6 +29,10 @@ setMarkerColor = () => {
   this.setState({ color: '#33dc3f' })
 }
 
+setAddress = () => {
+  this.setState({ address: '' })
+}
+
 componentDidMount () {
   // const { zoom } = this.state
   const map = new mapboxgl.Map({
@@ -127,10 +131,10 @@ render () {
         user={user}
         address={address}
         setMarkerColor={this.setMarkerColor}
+        setAddress={this.setAddress}
       />
       <div ref={this.mapContainer} className='map-container' />
-      <div className='lat-long'>
-        Longitude: {lng} | Latitude: {lat} | Zoom: {zoom} address: {address}
+      <div className='lat-long'>Longitude: {lng} | Latitude: {lat} | Zoom: {zoom} address: {address}
       </div>
     </div>
   )
