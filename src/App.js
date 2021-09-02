@@ -38,6 +38,7 @@ import Map from './components/map/Map'
 // mapbox
 import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-webpack-loader-syntax
 mapboxgl.accessToken = 'pk.eyJ1IjoibGF1cmFhbHlzb24iLCJhIjoiY2tzcDJleWVkMDF0NjMxcGhwMzM1Mm1tMiJ9.27PwqNrg2-gZnMmuS1vOww'
+
 class App extends Component {
   constructor (props) {
     super(props)
@@ -204,5 +205,4 @@ render () {
   )
 }
 }
-
 export default App
