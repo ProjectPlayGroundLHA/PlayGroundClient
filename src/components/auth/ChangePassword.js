@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-// api calls
+
 import { changePassword } from '../../api/auth'
-// messages
-import { changePasswordSuccess, changePasswordFailure } from '../AutoDismissAlert/messages'
-// bootstrap
+import {
+  changePasswordSuccess,
+  changePasswordFailure
+} from '../AutoDismissAlert/messages'
+
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
@@ -77,7 +79,9 @@ render () {
               onChange={this.handleChange}
             />
           </Form.Group>
-          <Button variant='primary' type='submit'>Submit</Button>
+          <Button variant='primary' type='submit'>
+            Submit
+          </Button>
         </Form>
       </div>
     </div>

@@ -28,45 +28,47 @@ class ShowLocation extends Component {
       )
   }
 
-  handleDelete = (event) => {
-    const { match, user, history } = this.props
-    deleteLocation(match.params.id, user)
-    // Redirect to the list of locations
-      .then(() => history.push('/map/locations'))
-      .catch((err) => console.log(err))
+handleDelete = (event) => {
+  const { match, user, history } = this.props
+  deleteLocation(match.params.id, user)
+  // Redirect to the list of locations
+    .then(() => history.push('/locations'))
+    .catch((err) => console.log(err))
+}
+
+render () {
+  if (this.state.location === null) {
+    return 'Loading...'
   }
 
-  render () {
-    if (this.state.location === null) {
-      return 'Loading...'
-    }
+  // Get the owner (a user id) from the movie state
+  const { location, description, owner } = this.state.location
+  const { user, history, match } = this.props
+  // history, match
 
-    // Get the owner (a user id) from the movie state
-    const { location, description, owner } = this.state.location
-    const { user, history, match } = this.props
-    // history, match
+  return (
+    <>
+      <h3>Show One Location</h3>
+      <h5>{location}</h5>
+      <p>Where? Here - {description}</p>
+      {user._id === owner && (
+        <>
+          <Button onClick={this.handleDelete}>Delete</Button>
+          {/* <Button>
+            <Link to={`/locations/${match.params.id}/edit`}>Update</Link>
+          </Button> */}
 
-    return (
-      <>
-        <h3>Show One Location</h3>
-        <h5>{location}</h5>
-        <p>Where? Here - {description}</p>
-        {user._id === owner && (
-          <>
-            <Button onClick={this.handleDelete}>Delete</Button>
-            {/* <Button>
-              <Link to={`/locations/${match.params.id}/edit`}>Update</Link>
-            </Button> */}
-
-            <Button
-              onClick={() => history.push(`/map/locations/${match.params.id}/edit`)}>
-              Update
-            </Button>
-          </>
-        )}
-      </>
-    )
-  }
+          <Button
+            onClick={() =>
+              history.push(`/locations/${match.params.id}/edit`)
+            }>
+            Update
+          </Button>
+        </>
+      )}
+    </>
+  )
+}
 }
 
 export default withRouter(ShowLocation)
