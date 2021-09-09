@@ -23,7 +23,7 @@ Log in and make the world your playground. Show off your favorite places around 
 - As a signed in user I would like to remove a friend.
 - As a signed in user I would like to be able to sign out.
 ```
-## Version Two Plans
+## Unsolved Problems
 ```md
 - Adjust map marker to move once location has been created to reveal newly created location.
 - Smooth out the feature that keeps the maker on the map canvas (smooth transitions)

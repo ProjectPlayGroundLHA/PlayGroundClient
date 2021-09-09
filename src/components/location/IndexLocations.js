@@ -15,7 +15,7 @@ class IndexLocations extends Component {
   componentDidMount () {
     const { user, msgAlert } = this.props
     indexLocations(user)
-      .then(res => this.setState({ locations: res.data.locations }))
+      .then((res) => this.setState({ locations: res.data.locations }))
       .catch((err) =>
         msgAlert({
           heading: 'Index failed :(',
@@ -36,9 +36,9 @@ class IndexLocations extends Component {
     if (locations.length === 0) {
       locationJsx = 'No locations, go create some'
     } else {
-      locationJsx = locations.map(location => (
+      locationJsx = locations.map((location) => (
         <li key={location._id}>
-          <Link to={`/map/locations/${location._id}`}>{location.location}</Link>
+          <Link to={`/locations/${location._id}`}>{location.location}</Link>
         </li>
       ))
     }

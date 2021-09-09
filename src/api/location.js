@@ -52,9 +52,9 @@ export const deleteLocation = (id, user) => {
   })
 }
 
-export const updateLocation = (data, user) => {
+export const updateLocation = (data, id, user) => {
   return axios({
-    url: apiUrl + '/locations/' + data.id,
+    url: apiUrl + '/locations/' + id,
     method: 'PATCH',
     data: { location: data },
     headers: {

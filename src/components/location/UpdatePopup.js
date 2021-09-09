@@ -1,19 +1,20 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { updateLocation, showLocation, deleteLocation, indexLocations } from '../../api/location'
-// import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-webpack-loader-syntax
+
+import { updateLocation, showLocation } from '../../api/location'
+import { updateLocationFailure } from '../AutoDismissAlert/messages'
+
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import Modal from 'react-bootstrap/Modal'
 
-class UpdatePopup extends Component {
+class UpdateLocation extends Component {
   constructor (props) {
     super(props)
+
     this.state = {
       location: {
-        id: '',
-        description: '',
-        show: false
+        location: '',
+        description: ''
       }
     }
   }
@@ -27,8 +28,6 @@ class UpdatePopup extends Component {
       .catch((err) => console.log(err))
   }
 
-handleClose = () => this.setState({ show: false })
-handleShow = () => this.setState({ show: true })
 handleChange = (event) => {
   const userInput = { [event.target.name]: event.target.value }
   this.setState((currState) => {
@@ -36,168 +35,65 @@ handleChange = (event) => {
   })
 }
 
-handleUpdateSubmit = (event) => {
-  event.preventDefault()
-  const { user, msgAlert } = this.props
-  const data = this.state.location
-  // const id = match.params.id
-
-  // const resetMap = (props) => {
-  //   const { user } = this.props
-
-  //   indexLocations(user)
-  //     .then(() => console.log('this worked'))
-  //     .then((res) => console.log('this is res in update index: ', res))
-  //     .catch((err) => console.log(err))
-  // }
-
-  updateLocation(data, user)
-    .then(() => console.log('this is user in update popup: ', user))
-    .then(() => this.setState({ location: { id: '', description: '' } }))
-    // .then(() =>
-    //   indexLocations(user)
-    //     .then((res) => {
-    //       console.log(res)
-    //       // const placeholder = document.createElement('div')
-    //       // ReactDOM.render(PopupButton, placeholder)
-    //       for (const { coordinates, location, description, _id } of res.data
-    //         .locations) {
-    //       // this.updateData = { location, description, _id }
-    //       // make a marker for each location and add to the map
-    //         new mapboxgl.Marker({
-    //           draggable: false,
-    //           color: '#ffff'
-    //         })
-    //           .setLngLat(coordinates)
-    //           .setPopup(
-    //             new mapboxgl.Popup({ offset: 25 }).setHTML(
-    //               `
-    //           <div>
-    //           <h4>${location}</h4>
-    //           <h6>${description}</h6>
-    //           <p>ID: ${_id}</p>
-    //           <button onClick={removePopUp}>delete</button>
-    //           </div>
-    //           `
-    //             )
-    //           )
-    //           .addTo(map)
-    //       }
-    //     })
-    // )
-    .then(() => {
-      msgAlert({
-        heading: 'updated!',
-        variant: 'success'
-      })
-    })
-  // .then(() => <Redirect to='/map'/>)
-    .catch((err) => console.log(err))
-
-  indexLocations(user)
-}
-
-handleDeleteSubmit = (event) => {
+handleSubmit = (event) => {
   event.preventDefault()
 
-  const { user, msgAlert } = this.props
+  const { user, match, history, msgAlert } = this.props
   const data = this.state.location
-  // const id = match.params.id
+  const id = match.params.id
 
-  deleteLocation(data.id, user)
-    .then(() => this.setState({ location: { id: '' } }))
-    .then(() => {
-      msgAlert({
-        heading: 'Deleted!',
-        variant: 'success'
-      })
-    })
+  updateLocation(data, id, user)
+    .then(() => history.push('/locations/' + id))
+    .then(() =>
+      this.setState({ location: { location: '', description: '' } })
+    )
     .catch((err) => {
       msgAlert({
-        heading: 'Unable to delete location',
-        message: err.message,
+        heading: 'location update failed :(',
+        message: updateLocationFailure + err.message,
         variant: 'danger'
       })
     })
 }
 
 render () {
-  // const { location } = this.state
+  const { location } = this.state
 
   return (
-    <>
-      <Button variant='primary' onClick={this.handleShow}>
-        Update Location
-      </Button>
-      <Modal show={this.state.show} onHide={this.handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Update Location</Modal.Title>
-        </Modal.Header>
-
-        <Modal.Body>
-          <Form onSubmit={this.handleUpdateSubmit}>
-            {/* <Form.Select aria-label='Default select example'>
-            <option>Location to Edit</option>
-            <option value='1'>One</option>
-            <option value='2'>Two</option>
-            <option value='3'>Three</option>
-          </Form.Select> */}
-            <Form.Group controlId='id'>
-              <Form.Label>ID</Form.Label>
-              <Form.Control
-                required
-                name='id'
-                type='text'
-                placeholder='Copy the ID the location you would like to update'
-                onChange={this.handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId='description'>
-              <Form.Label>Description</Form.Label>
-              <Form.Control
-                required
-                name='description'
-                type='text'
-                placeholder='Type in your new description'
-                onChange={this.handleChange}
-              />
-            </Form.Group>
-            <Button
-              variant='primary'
-              type='submit'
-              onClick={this.handleClose}>
-              Update
-            </Button>
-          </Form>
-        </Modal.Body>
-
-        <Modal.Header>
-          <Modal.Title>or Delete Location</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={this.handleDeleteSubmit}>
-            <Form.Group controlId='id'>
-              <Form.Label>ID</Form.Label>
-              <Form.Control
-                required
-                name='id'
-                type='text'
-                placeholder='Copy the ID the location you would like to update'
-                onChange={this.handleChange}
-              />
-            </Form.Group>
-            <Button
-              variant='primary'
-              type='submit'
-              onClick={this.handleClose}>
-              Delete
-            </Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
-    </>
+    <div className='row'>
+      <div className='col-sm-10 col-md-8 mx-auto mt-5'>
+        <h3>Update Location</h3>
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Group controlId='location'>
+            <Form.Label>Location</Form.Label>
+            <Form.Control
+              required
+              type='text'
+              name='location'
+              value={location.location}
+              placeholder='Enter location'
+              onChange={this.handleChange}
+            />
+          </Form.Group>
+          <Form.Group controlId='description'>
+            <Form.Label>Description</Form.Label>
+            <Form.Control
+              required
+              name='description'
+              value={location.description}
+              type='text'
+              placeholder='description'
+              onChange={this.handleChange}
+            />
+          </Form.Group>
+          <Button variant='primary' type='submit'>
+            Submit
+          </Button>
+        </Form>
+      </div>
+    </div>
   )
 }
 }
 
-export default withRouter(UpdatePopup)
+export default withRouter(UpdateLocation)
