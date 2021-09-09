@@ -3,12 +3,6 @@
 import React, { Component, Fragment } from 'react'
 import { Route } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
-
-import Button from 'react-bootstrap/Button'
-
-
-import Mod from './components/Model'
-// import './styles.css'
 // Authentication
 
 import AuthenticatedRoute from './components/AuthenticatedRoute/AuthenticatedRoute'
@@ -27,20 +21,20 @@ import Users from '../src/components/auth/Users'
 // location CRUD
 import IndexLocations from './components/location/IndexLocations'
 import ShowLocation from './components/location/ShowLocation'
-import UpdateLocation from './components/location/UpdateLocation'
+// import UpdateLocation from './components/location/UpdateLocation'
 import IndexAllLocations from '../src/components/location/indexAllLocations'
+import UpdatePopup from './components/location/UpdatePopup'
 
 // friends CRUD
 import CreateFriend from '../src/components/friend/CreateFriend'
 import IndexFriends from '../src/components/friend/IndexFriends'
 import ShowFriend from '../src/components/friend/ShowFriend'
 import UpdateFriend from '../src/components/friend/UpdateFriend'
-import Users from './components/map/Users'
-
-import Sample from './components/UserAuth'
 
 // map logic
+import WelcomeMap from './components/map/WelcomeMap'
 import Map from './components/map/Map'
+
 // mapbox
 import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-webpack-loader-syntax
 mapboxgl.accessToken = 'pk.eyJ1IjoibGF1cmFhbHlzb24iLCJhIjoiY2tzcDJleWVkMDF0NjMxcGhwMzM1Mm1tMiJ9.27PwqNrg2-gZnMmuS1vOww'
@@ -51,18 +45,17 @@ class App extends Component {
       user: null,
       msgAlerts: []
     }
-    this.mapContainer = React.createRef()
   }
 
-	setUser = (user) => this.setState({ user })
+	setUser = (newUser) => this.setState({ user: newUser })
 
 	clearUser = () => this.setState({ user: null })
 
-	// deleteAlert = (id) => {
-	//   this.setState((state) => {
-	//     return { msgAlerts: state.msgAlerts.filter((msg) => msg.id !== id) }
-	//   })
-	// }
+  deleteAlert = (id) => {
+    this.setState((state) => {
+      return { msgAlerts: state.msgAlerts.filter((msg) => msg.id !== id) }
+    })
+  }
 
 msgAlert = ({ heading, message, variant }) => {
   const id = uuid()
@@ -73,32 +66,11 @@ msgAlert = ({ heading, message, variant }) => {
   })
 }
 
-componentDidMount () {
-  const map = new mapboxgl.Map({
-    container: this.mapContainer.current,
-    style: 'mapbox://styles/lauraalyson/cksrla6wq2b4f18nvb4mmk0xv',
-    center: [-70.9, 42.35],
-    zoom: 9
-  })
-  map.on('move', () => {
-    this.setState({
-      lng: map.getCenter().lng.toFixed(4),
-      lat: map.getCenter().lat.toFixed(4),
-      zoom: map.getZoom().toFixed(2)
-    })
-  })
-}
-
 render () {
   const { msgAlerts, user } = this.state
 
-
   return (
     <Fragment>
-      <Header user={user} className='container-fluid' />
-      <div>
-        <div ref={this.mapContainer} className='map-container' />
-      </div>
       {msgAlerts.map((msgAlert) => (
         <AutoDismissAlert
           key={msgAlert.id}
@@ -109,11 +81,33 @@ render () {
           deleteAlert={this.deleteAlert}
         />
       ))}
+      <Header
+        msgAlert={this.msgAlert}
+        setUser={this.setUser}
+        user={user}
+        className='container-fluid'>
+        <Route
+          path='/sign-up'
+          render={() => (
+            <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
+          )}
+        />
+        <Route
+          path='/sign-in'
+          render={() => (
+            <SignIn msgAlert={this.msgAlert} setUser={this.setUser} />
+          )}
+        />
+        {/* <Route path='/sign-in' user={user}>
+          <SignIn user={user} msgAlert={this.msgAlert} setUser={this.setUser} />
+          component={SignIn} */}
+        {/* </Route> */}
+      </Header>
+
       <main className='container-fluid'>
-        <Sample />
-        <Mod />
-        <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
-        <SignIn msgAlert={this.msgAlert} setUser={this.setUser} />
+        {/* <SignIn msgAlert={this.msgAlert} setUser={this.setUser} />
+        <SignUp msgAlert={this.msgAlert} setUser={this.setUser} /> */}
+        <Route exact path='/' render={() => <WelcomeMap />} />
         <Route
           path='/users'
           render={() => (
@@ -129,18 +123,6 @@ render () {
             />
           )}
         />
-        {/* <Route
-          path='/sign-up'
-          render={() => (
-            <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
-          )}
-        />
-        <Route
-          path='/sign-in'
-          render={() => (
-            <SignIn msgAlert={this.msgAlert} setUser={this.setUser} />
-          )}
-        /> */}
         <AuthenticatedRoute
           path='/users'
           user={user}
@@ -180,7 +162,7 @@ render () {
           msgAlert={this.msgAlert}
           user={user}
           path='/map/locations/:id/edit'
-          render={() => <UpdateLocation msgAlert={this.msgAlert} user={user} />}
+          render={() => <UpdatePopup msgAlert={this.msgAlert} user={user} />}
         />
         <AuthenticatedRoute
           msgAlert={this.msgAlert}
@@ -221,6 +203,6 @@ render () {
     </Fragment>
   )
 }
-
+}
 
 export default App

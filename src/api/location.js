@@ -25,23 +25,12 @@ export const indexLocations = (user) => {
   })
 }
 
-export const indexFriendLocations = (token) => {
-  return axios({
-    method: 'GET',
-    url: apiUrl + '/locations',
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
-}
-
 export const indexAllLocations = () => {
   return axios({
     method: 'GET',
     url: apiUrl + '/locations-all'
   })
 }
-
 
 export const showLocation = (id, user) => {
   return axios({
@@ -63,10 +52,9 @@ export const deleteLocation = (id, user) => {
   })
 }
 
-export const updateLocation = (data, id, user) => {
-  console.log(data, id, user)
+export const updateLocation = (data, user) => {
   return axios({
-    url: apiUrl + '/locations/' + id,
+    url: apiUrl + '/locations/' + data.id,
     method: 'PATCH',
     data: { location: data },
     headers: {
