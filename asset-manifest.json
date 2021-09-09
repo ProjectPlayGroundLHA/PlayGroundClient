@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/PlayGroundClient/static/css/main.36c5c54e.chunk.css",
-    "main.js": "/PlayGroundClient/static/js/main.a6d427ee.chunk.js",
-    "main.js.map": "/PlayGroundClient/static/js/main.a6d427ee.chunk.js.map",
+    "main.css": "/PlayGroundClient/static/css/main.af2bb058.chunk.css",
+    "main.js": "/PlayGroundClient/static/js/main.96284346.chunk.js",
+    "main.js.map": "/PlayGroundClient/static/js/main.96284346.chunk.js.map",
     "runtime-main.js": "/PlayGroundClient/static/js/runtime-main.67a6db03.js",
     "runtime-main.js.map": "/PlayGroundClient/static/js/runtime-main.67a6db03.js.map",
     "static/css/2.b0359dc5.chunk.css": "/PlayGroundClient/static/css/2.b0359dc5.chunk.css",
@@ -10,14 +10,14 @@
     "static/js/2.fe6fa4d5.chunk.js.map": "/PlayGroundClient/static/js/2.fe6fa4d5.chunk.js.map",
     "index.html": "/PlayGroundClient/index.html",
     "static/css/2.b0359dc5.chunk.css.map": "/PlayGroundClient/static/css/2.b0359dc5.chunk.css.map",
-    "static/css/main.36c5c54e.chunk.css.map": "/PlayGroundClient/static/css/main.36c5c54e.chunk.css.map",
+    "static/css/main.af2bb058.chunk.css.map": "/PlayGroundClient/static/css/main.af2bb058.chunk.css.map",
     "static/js/2.fe6fa4d5.chunk.js.LICENSE.txt": "/PlayGroundClient/static/js/2.fe6fa4d5.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.67a6db03.js",
     "static/css/2.b0359dc5.chunk.css",
     "static/js/2.fe6fa4d5.chunk.js",
-    "static/css/main.36c5c54e.chunk.css",
-    "static/js/main.a6d427ee.chunk.js"
+    "static/css/main.af2bb058.chunk.css",
+    "static/js/main.96284346.chunk.js"
   ]
 }
